@@ -48,6 +48,83 @@ interface Note {
   category: string;
   color: string;
 }
+const techRow1 = ["React.js", "TypeScript", "Vue.js", "JavaScript (ES6+)", "Material UI", "Tailwind CSS", "HTML5 & CSS3"];
+const techRow2 = ["Node.js", "Express.js", "Python", "Flask", "Java", "Spring Boot", "RESTful APIs"];
+const techRow3 = ["Kotlin", "Jetpack Compose", "React Native", "PostgreSQL", "MySQL", "MongoDB", "Firebase"];
+const techRow4 = ["Redux & Zustand", "Context API", "Vite & Webpack", "Jest & Cypress", "Micro-Frontends", "WebSockets"];
+const techRow5 = ["Docker", "Nginx", "CI/CD", "RabbitMQ", "Git", "Figma", "Agile & Scrum"];
+function MarqueeRow({ items, reverse = false }: { items: string[], reverse?: boolean }) {
+  // Kesintisiz sonsuz döngü için listeyi çoğaltıyoruz
+  const displayItems = [...items, ...items, ...items, ...items];
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        overflow: "hidden",
+        width: "100%",
+        mb: 3,
+        // Kenarlarda yumuşak kaybolma efekti (fade) için:
+        maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        "&:hover > div": {
+          animationPlayState: "paused", // Mouse üzerine gelince akışı durdur
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          gap: 3,
+          width: "max-content",
+          animation: `${reverse ? "scrollRight" : "scrollLeft"} 35s linear infinite`,
+          "@keyframes scrollLeft": {
+            "0%": { transform: "translateX(0)" },
+            "100%": { transform: "translateX(-50%)" },
+          },
+          "@keyframes scrollRight": {
+            "0%": { transform: "translateX(-50%)" },
+            "100%": { transform: "translateX(0)" },
+          },
+        }}
+      >
+        {displayItems.map((tech, i) => (
+  <Box
+    key={i}
+    sx={{
+      padding: "10px 22px", // 5 satıra uygun, biraz daha kompakt
+      borderRadius: "12px",
+      border: "1px solid #eaeaea",
+      backgroundColor: "#fff",
+      color: "text.secondary",
+      fontWeight: 500,
+      fontSize: "1.1rem",
+      fontFamily: '"Playfair Display", serif',
+      fontStyle: 'italic',
+      transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)", // Daha hızlı ve tok bir tepki hissi için süreyi 0.2s yaptık
+      cursor: "pointer", // Mouse üzerine gelince el işareti çıksın
+      "&:hover": {
+        color: "primary.main",
+        borderColor: "primary.main",
+        // Dışa doğru neon parlama + içe doğru (inset) sanal kenarlık ile kalınlaşma efekti
+        boxShadow: "0 0 15px rgba(146, 64, 14, 0.4), inset 0 0 0 1px #92400e",
+        transform: "scale(0.95)", // Kutuyu küçült
+        zIndex: 1,
+      },
+      "&:active": {
+        // Tıklama anında (mouse basılı tutulduğunda) daha da küçülsün ve kenarı daha çok kalınlaşsın
+        transform: "scale(0.90)",
+        boxShadow: "0 0 20px rgba(146, 64, 14, 0.6), inset 0 0 0 2px #92400e",
+      }
+    }}
+  >
+    {tech}
+  </Box>
+))}
+      </Box>
+    </Box>
+  );
+}
 
 function StatCounter({ end, title, suffix = "" }: { end: number, title: string, suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -99,7 +176,7 @@ function Home({ notes, lang, setLang, t }: any) {
                 {t.notes}
               </Typography>
               <Typography variant="overline" sx={{ cursor: 'pointer', '&:hover': { color: '#000', fontStyle: 'italic' } }}>
-                <a href="https://medium.com/@ayseasenakarauz" target="_blank" rel="noopener noreferrer">{t.articles}</a>
+                <a href="https://medium.com/@ayseadagci" target="_blank" rel="noopener noreferrer">{t.articles}</a>
               </Typography>
             </Box>
 
@@ -129,14 +206,18 @@ function Home({ notes, lang, setLang, t }: any) {
       </Drawer>
 
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: { xs: 'column', md: 'row' }, pt: '64px', borderBottom: '1px solid #eaeaea' }}>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: { xs: 4, md: 10 } }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <Typography variant="overline" sx={{ color: 'primary.main', mb: 2, display: 'block' }}>{t.basedIn}</Typography>
-            <Typography variant="h1" sx={{ fontSize: { xs: '4rem', md: '6rem' }, lineHeight: 1.1, mb: 3 }}>
-              Code & <br /><span style={{ color: '#999', fontStyle: 'italic' }}>Architecture.</span>
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400, fontStyle: 'italic', lineHeight: 1.8 }}>{t.heroDesc}</Typography>
-          </motion.div>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: { xs: 4, md: 1 } }}>
+         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+  <Box sx={{ width: '100%', maxWidth: '800px', mb: 0, mt: 2 }}>
+    {/* Sırayla yönleri değiştiriyoruz: reverse={true} sağa, false sola akar */}
+    <MarqueeRow items={techRow1} reverse={false} />
+    <MarqueeRow items={techRow2} reverse={true} />
+    <MarqueeRow items={techRow3} reverse={false} />
+    <MarqueeRow items={techRow4} reverse={true} />
+    <MarqueeRow items={techRow5} reverse={false} />
+  </Box>
+  
+</motion.div>
         </Box>
         <Box sx={{ flex: 1, backgroundColor: '#f9f9f9', borderLeft: { md: '1px solid #eaeaea' }, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', minHeight: { xs: '40vh', md: 'auto' } }}>
           <Typography sx={{ position: 'absolute', fontSize: '15vw', fontFamily: '"Playfair Display", serif', fontStyle: 'italic', color: 'rgba(0,0,0,0.03)', userSelect: 'none' }}>System</Typography>
