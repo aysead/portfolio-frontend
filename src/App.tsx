@@ -15,15 +15,15 @@ import NotesPage from "./pages/NotesPage";
 const editorialTheme = createTheme({
   typography: {
     fontFamily: '"Inter", sans-serif',
-    h1: { fontFamily: '"Playfair Display", serif', fontWeight: 400 },
-    h2: { fontFamily: '"Playfair Display", serif', fontWeight: 400, fontStyle: 'italic' },
-    h3: { fontFamily: '"Playfair Display", serif', fontWeight: 400 },
-    h4: { fontFamily: '"Playfair Display", serif', fontWeight: 600, fontStyle: 'italic' },
-    overline: { letterSpacing: '0.3em', fontWeight: 600, color: '#999' }
+    h1: { fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700 }, 
+    h2: { fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600 },
+    h3: { fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600 },
+    h4: { fontFamily: '"Space Grotesk", sans-serif', fontWeight: 600 },
+    overline: { letterSpacing: '0.2em', fontWeight: 600, color: '#999' } 
   },
   palette: {
     background: { default: '#fcfcfc', paper: '#ffffff' },
-    primary: { main: '#92400e' },
+    primary: { main: '#92400e' }, 
     text: { primary: '#1a1a1a', secondary: '#666666' }
   },
   components: {
@@ -54,7 +54,6 @@ const techRow3 = ["Kotlin", "Jetpack Compose", "React Native", "PostgreSQL", "My
 const techRow4 = ["Redux & Zustand", "Context API", "Vite & Webpack", "Jest & Cypress", "Micro-Frontends", "WebSockets"];
 const techRow5 = ["Docker", "Nginx", "CI/CD", "RabbitMQ", "Git", "Figma", "Agile & Scrum"];
 function MarqueeRow({ items, reverse = false }: { items: string[], reverse?: boolean }) {
-  // Kesintisiz sonsuz döngü için listeyi çoğaltıyoruz
   const displayItems = [...items, ...items, ...items, ...items];
 
   return (
@@ -64,11 +63,10 @@ function MarqueeRow({ items, reverse = false }: { items: string[], reverse?: boo
         overflow: "hidden",
         width: "100%",
         mb: 3,
-        // Kenarlarda yumuşak kaybolma efekti (fade) için:
         maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
         WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
         "&:hover > div": {
-          animationPlayState: "paused", // Mouse üzerine gelince akışı durdur
+          animationPlayState: "paused", 
         },
       }}
     >
@@ -92,27 +90,24 @@ function MarqueeRow({ items, reverse = false }: { items: string[], reverse?: boo
   <Box
     key={i}
     sx={{
-      padding: "10px 22px", // 5 satıra uygun, biraz daha kompakt
+      padding: "10px 22px", 
       borderRadius: "12px",
       border: "1px solid #eaeaea",
       backgroundColor: "#fff",
       color: "text.secondary",
-      fontWeight: 500,
+      fontWeight: 600,
       fontSize: "1.1rem",
-      fontFamily: '"Playfair Display", serif',
-      fontStyle: 'italic',
-      transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)", // Daha hızlı ve tok bir tepki hissi için süreyi 0.2s yaptık
-      cursor: "pointer", // Mouse üzerine gelince el işareti çıksın
+      fontFamily: '"Space Grotesk", sans-serif',
+      transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)", 
+      cursor: "pointer", 
       "&:hover": {
         color: "primary.main",
         borderColor: "primary.main",
-        // Dışa doğru neon parlama + içe doğru (inset) sanal kenarlık ile kalınlaşma efekti
         boxShadow: "0 0 15px rgba(146, 64, 14, 0.4), inset 0 0 0 1px #92400e",
-        transform: "scale(0.95)", // Kutuyu küçült
+        transform: "scale(0.95)",
         zIndex: 1,
       },
       "&:active": {
-        // Tıklama anında (mouse basılı tutulduğunda) daha da küçülsün ve kenarı daha çok kalınlaşsın
         transform: "scale(0.90)",
         boxShadow: "0 0 20px rgba(146, 64, 14, 0.6), inset 0 0 0 2px #92400e",
       }
@@ -157,13 +152,12 @@ function Home({ notes, lang, setLang, t }: any) {
     const timer = setTimeout(() => setShowSplash(false), 2800);
     return () => clearTimeout(timer);
   }, []);
-
-  return (
+return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
 
       <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 2, md: 8 } }}>
-          <Typography variant="h6" sx={{ fontFamily: '"Playfair Display", serif', fontWeight: 700, letterSpacing: '0.2em' }}>
+          <Typography variant="h6" sx={{ fontFamily: '"Space Grotesk", sans-serif', fontWeight: 700, letterSpacing: '0.2em' }}>
             AYSE A. DAGCI <span style={{ fontWeight: 300, fontSize: '0.8rem', color: '#999' }}>FULL STACK DEVELOPER</span>
           </Typography>
           
@@ -205,44 +199,49 @@ function Home({ notes, lang, setLang, t }: any) {
         </List>
       </Drawer>
 
-      <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: { xs: 'column', md: 'row' }, pt: '64px', borderBottom: '1px solid #eaeaea' }}>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: { xs: 4, md: 1 } }}>
-         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-  <Box sx={{ width: '100%', maxWidth: '800px', mb: 0, mt: 2 }}>
-    {/* Sırayla yönleri değiştiriyoruz: reverse={true} sağa, false sola akar */}
-    <MarqueeRow items={techRow1} reverse={false} />
-    <MarqueeRow items={techRow2} reverse={true} />
-    <MarqueeRow items={techRow3} reverse={false} />
-    <MarqueeRow items={techRow4} reverse={true} />
-    <MarqueeRow items={techRow5} reverse={false} />
-  </Box>
-  
-</motion.div>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', pt: '64px' }}>
+        
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, borderBottom: '1px solid #eaeaea' }}>
+          
+          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: { xs: 4, md: 1 } }}>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <Box sx={{ width: '100%', maxWidth: '800px', mb: 0, mt: 2 }}>
+                <MarqueeRow items={techRow1} reverse={false} />
+                <MarqueeRow items={techRow2} reverse={true} />
+                <MarqueeRow items={techRow3} reverse={false} />
+                <MarqueeRow items={techRow4} reverse={true} />
+                <MarqueeRow items={techRow5} reverse={false} />
+              </Box>
+            </motion.div>
+          </Box>
+
+          <Box sx={{ flex: 1, backgroundColor: '#f9f9f9', borderLeft: { md: '1px solid #eaeaea' }, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', minHeight: { xs: '40vh', md: 'auto' } }}>
+            <Typography sx={{ position: 'absolute', fontSize: '15vw', fontFamily: '"Space Grotesk", sans-serif',  color: 'rgba(0,0,0,0.03)', userSelect: 'none' }}>System</Typography>
+            <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, delay: 2.5 }}>
+              <Box sx={{ backgroundColor: '#fff', p: 5, border: '1px solid #eaeaea', zIndex: 10, position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
+                <Terminal size={60} color="#92400e" strokeWidth={1} />
+              </Box>
+            </motion.div>
+          </Box>
+
         </Box>
-        <Box sx={{ flex: 1, backgroundColor: '#f9f9f9', borderLeft: { md: '1px solid #eaeaea' }, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', minHeight: { xs: '40vh', md: 'auto' } }}>
-          <Typography sx={{ position: 'absolute', fontSize: '15vw', fontFamily: '"Playfair Display", serif', fontStyle: 'italic', color: 'rgba(0,0,0,0.03)', userSelect: 'none' }}>System</Typography>
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, delay: 2.5 }}>
-            <Box sx={{ backgroundColor: '#fff', p: 5, border: '1px solid #eaeaea', zIndex: 10, position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.05)' }}>
-              <Terminal size={60} color="#92400e" strokeWidth={1} />
-            </Box>
-          </motion.div>
+
+        <Box sx={{ backgroundColor: '#fff' }}>
+          <Container maxWidth="xl" disableGutters>
+            <Grid container>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={4} title={t.stats.projects} /></Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={notes.length} title={t.stats.notes} /></Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={3} title={t.stats.articles} /></Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} sx={{ borderRight: 'none !important' }}><StatCounter end={10200} title={t.stats.lines} suffix="+" /></Grid>
+            </Grid>
+          </Container>
         </Box>
+
       </Box>
 
-      <Box sx={{ borderBottom: '1px solid #eaeaea', backgroundColor: '#fff' }}>
-        <Container maxWidth="xl" disableGutters>
-          <Grid container>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={4} title={t.stats.projects} /></Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={notes.length} title={t.stats.notes} /></Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}><StatCounter end={3} title={t.stats.articles} /></Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} sx={{ borderRight: 'none !important' }}><StatCounter end={1200} title={t.stats.lines} suffix="+" /></Grid>
-          </Grid>
-        </Container>
-      </Box>
     </motion.div>
   );
 }
-
 function AnimatedRoutes({ notes, lang, setLang, t }: any) {
   const location = useLocation(); 
   return (
