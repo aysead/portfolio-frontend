@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# Technical Knowledge Base & Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a high-performance, interactive **Knowledge Base** designed to demonstrate the practical application of **Frontend, Backend, and System Design** principles—such as **Graceful Degradation**, **Type Safety**, and **E2E Testing**—in real-world scenarios.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Frontend:** `React 19` + `TypeScript` + `Vite`
+* **Styling:** `Material UI (MUI)` & `Tailwind CSS`
+* **Animations:** `Framer Motion` (3D Flip Cards & Layout Transitions)
+* **Testing:** `Cypress` (End-to-End Testing)
+* **State & Data:** `Axios` & `React Router Dom`
+* **Backend:** `Node.js` / `Express` (Integrated with `MongoDB Atlas`)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Architectural Highlights & "Senior" Approaches
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Graceful Degradation (Resilient Systems)
+A common misconception in system design is assuming that external services (like databases) will always be available. In this project:
+* **Guard Clauses:** If the MongoDB connection fails or hits an IP restriction, the application instantly detects `mongoose.connection.readyState !== 1` and serves a **Fallback Dataset**.
+* **UX Continuity:** The user never experiences a blank screen or an infinite loading spinner; the UI remains fully functional using local fallback modules.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. E2E Testing with Cypress
+Critical user paths (Happy Paths) and edge-case failure scenarios are shielded with **Cypress**:
+* **Localization Verification:** Ensuring `TR/EN` language switching works seamlessly across the UI.
+* **Resilience Testing:** Verifying the system doesn't crash when the API returns a `500 error` by mocking failure responses.
+* **Interactive UI:** Automated testing for 3D card rotations and Z-axis depth triggers.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. "Above the Fold" Optimization
+For a superior User Experience (UX), stats and key highlights are optimized using a **100vh Layout Strategy**. By leveraging **Flexbox**, the core content remains visible without scrolling across all screen sizes, ensuring high engagement from the first second.
+
+---
+
+## Installation & Setup
+
+To run this project locally:
+
+```bash
+# 1. Clone the repository
+git clone [https://github.com/aysead/portfolio-frontend.git](https://github.com/aysead/portfolio-frontend.git)
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
+
+# 4. Run Cypress tests (Headless mode)
+npx cypress run
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 Testing & Quality Assurance
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To watch the tests run in the Cypress interactive browser:
+
+```bash
+npx cypress open
 ```
+
+---
+
+## 📝 Technical Case Study (Medium)
+
+I have documented the **IPv4/IPv6** network troubleshooting, the **Mongoose state management**, and the architectural decisions behind this project on Medium:
+
+👉 **[Read the Full Article Here](https://medium.com/@ayseadagci)**
+
+---
+
+## 📬 Contact
+
+**Ayse A. Dağcı** - *Full Stack Developer*
+
+* **GitHub:** [github.com/aysead](https://github.com/aysead)
+* **LinkedIn:** linkedin.com Ayse Asena Dagci
+
+---
+
+> *Generated with a focus on **System Resilience** and **Clean Code**.*
