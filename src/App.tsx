@@ -258,12 +258,15 @@ export default function App() {
   const [lang, setLang] = useState<'en' | 'tr'>('en'); 
   const [notes, setNotes] = useState<Note[]>([]);
   const t = translations[lang];
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/notes")
+    axios.get(`${API_BASE_URL}/api/notes`)
       .then(res => setNotes(res.data))
-      .catch(err => console.error(err));
-  }, []);
+      .catch(err => {
+        console.error("API Error:", err);
+      });
+  }, [API_BASE_URL]);
 
   return (
     <ThemeProvider theme={editorialTheme}>
