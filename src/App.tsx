@@ -7,7 +7,7 @@ import {
   AppBar, Toolbar, Typography, Box, Grid, Container, IconButton,
   Drawer, List, ListItem 
 } from "@mui/material";
-import { Terminal, ArrowUpRight, Trash2, Menu, X, ArrowLeft } from "lucide-react";
+import { Terminal, Menu, X } from "lucide-react";
 import "./App.css"; 
 import { translations } from "./translations";
 import NotesPage from "./pages/NotesPage";
@@ -143,15 +143,10 @@ function StatCounter({ end, title, suffix = "" }: { end: number, title: string, 
 }
 
 function Home({ notes, lang, setLang, t }: any) {
-  const [showSplash, setShowSplash] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate(); 
   const toggleMobileMenu = () => setMobileOpen(!mobileOpen);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2800);
-    return () => clearTimeout(timer);
-  }, []);
 return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
 
