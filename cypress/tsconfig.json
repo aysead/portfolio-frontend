@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"],
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": false
+  },
+  "include": ["**/*.ts"]
+}
